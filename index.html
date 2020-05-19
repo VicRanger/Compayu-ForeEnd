@@ -1,0 +1,170 @@
+<html html>
+
+<head>
+    <title>Compayu</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script data-pace-options='{ "ajax": false }' src='./assets/js/lib/pace.min.js'>
+    </script>
+    <link rel="icon" href="./favicon.ico" type=”image/x-icon”> <link rel='stylesheet' type='text/css' media='screen'
+        href='assets/css/main.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='assets/css/ui.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='assets/css/transition.css'>
+
+</head>
+
+<body>
+    <div id="root">
+        <div id="stats"></div>
+        <div id="debug">
+            <p><span>isUnitClick</span>:<span id="is-unit-click"></span></p>
+            <p><span>cameraRot</span>:<span id="camera-rot"></span></p>
+            <p><span>hemiLight</span>:<span id="hemilight"></span></p>
+        </div>
+        <div id="tutorial" class="tutorial-hide"></div>
+        <transition name="pop-window">
+            <div v-if="pop.show" id="pop-layer">
+                <div @click="hidePopWindow" id="pop-bg">
+                </div>
+                <div id="pop-panel">
+                    <div id="pop-title" v-html="pop.title"></div>
+                    <div id="pop-content" v-html="pop.content"></div>
+                </div>
+            </div>
+        </transition>
+        <transition name="thought">
+            <div v-show="thought.show" id="thought" class="pop-window">
+                <a @click="hideThought" id="close" v-html="svgData.closeSvg"></a>
+                <div id="userinfo">
+                    <img :src="thought.face" id="face">
+                    <div id="name-and-date">
+                        <p id="name">{{thought.nickname}}</p>
+                        <p id="date"></p>
+                    </div>
+                </div>
+                <div id="content">
+                    <div id="text-content">{{thought.textContent}}</div>
+                    <img :src="thought.imgSrc" id="img-content">
+                </div>
+            </div>
+        </transition>
+        <transition name="thought">
+            <div v-show="express.show" id="express" class="pop-window">
+                <a @click="hideExpress" id="close" v-html="svgData.closeSvg"></a>
+                <div id="title">发表</div>
+                <div id="subtitle">分享你此时的「<span id="subtitle-name">{{express.typeText}}</span>」吧~</div>
+                <div id="content">
+                    <!-- <div id="write-content"> -->
+                    <textarea v-model="express.textContent" id="write-content-text" spellcheck="false">
+                    </textarea>
+                    <!-- </div> -->
+                </div>
+                <!-- 预留图像部分 -->
+                <!-- <div class="post-img">
+                    <img src="https://wx3.sinaimg.cn/mw1024/aa3b2600gy1g9in3lhpnwj218z0u0b2b.jpg", class="post-img-content">
+                </div> -->
+                <div id="post-button">
+                    <a v-html="svgData.uploadSvg" id="upload" href="#upload">
+                    </a>
+                    <a v-html="svgData.postSvg" @click="postExpress" id="post" href="#post">
+                    </a>
+                </div>
+            </div>
+        </transition>
+        <div id="top-msg-layer">
+            <transition-group name="top-msg" tag="span">
+            <div v-for="(msg,i) in topMsg" :key="i" class="top-msg-box" >
+                <div @click="callTopMsg(i)" class="top-msg-main">
+                    <div v-html="msg.title" class="top-msg-title"></div>
+                    <div v-html="msg.content" class="top-msg-content"></div>
+                </div>
+                <div @click="closeTopMsg(i)" class="top-msg-close">关闭</div>
+            </div>
+            </transition-group>
+        </div>
+        <div id="canvas-container"></div>
+        <div id="initial-container">
+            <div id="top-nav">
+                <div><a href="./about/about.html" target="_self">关于我们</a></div>
+                <div id="about-us" @click="showAboutUs">开发者信息</div>
+                <div id="user-license" @click="showUserLicense">用户协议</div>
+            </div>
+            <div id="bottom-box">
+                生活中不能说的秘密，请把它留在这里
+            </div>
+            <div id="center-box">
+                <div id="compayu-title">
+                    <div class="title-border title-top-border"></div>
+                    <div class="title-chs">
+                        <span class="title-desc">「</span>
+                        空游
+                        <span class="title-desc">」</span>
+                    </div>
+                    <div class="title-eng">Compayu</div>
+                    <div class="title-border title-bottom-border"></div>
+                </div>
+                <div id="login-panel">
+                    <div class="loading-box"></div>
+                    <div id="login-mode">
+                        <div id="user-mode" class="mode mode-selected">账号登录</div>
+                        <div id="random-mode" class="mode">游客登录</div>
+                    </div>
+                    <div id="input-panel">
+                        <div id="user-login">
+                            <input class="input-jw" type="text" placeholder="账号" />
+                            <input class="input-jw" type="password" placeholder="密码" />
+                            <div id="user-login-opts">
+                                <div id="user-login-left">
+                                    <input type="checkbox" />记住密码
+                                </div>
+                                <div id="user-login-right">
+                                    <div>忘记密码</div>
+                                    <div>没有账号？立即注册</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="random-login">
+                            <div id="random-panel">
+                                <div id="random-text">
+                                    <div>以过客的身份</div>
+                                    <div>去看看别人的故事吧</div>
+                                </div>
+                                <div @click="randomEnter" id="random-enter">登录</div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./assets/js/lib/jquery3.js"></script>
+    <script src="./assets/js/lib/vue.js"></script>
+    <script src="./assets/js/lib/jquery.cookie.js"></script>
+    <script src="./assets/js/lib/jquery.easing.1.3.js"></script>
+    <script src="./assets/js/lib/threex.domevents.js"></script>
+    <script src="./assets/js/lib/TimelineMax.js"></script>
+    <script src="./assets/js/lib/TweenMax.js"></script>
+    <script src="./assets/js/lib/jquery.gsap.js"></script>
+    <script src="./assets/js/lib/three.min.js"></script>
+    <script src="./assets/js/lib/OBJLoader.js"></script>
+    <script src="./assets/js/lib/stats.min.js"></script>
+    <script src="./assets/js/lib/Tone.js"></script>
+    <script src="./assets/js/runtime/BasicData.js"></script>
+    <script src="./assets/js/runtime/Database.js"></script>
+    <script src="./assets/js/runtime/Network.js"></script>
+    <script src="./assets/js/runtime/Global.js"></script>
+    <script src="./assets/js/runtime/Utility.js"></script>
+    <script src="./assets/js/runtime/ModelLoader.js"></script>
+    <script src="./assets/js/runtime/BaseGameObject.js"></script>
+    <script src="./assets/js/runtime/GameObjectController.js"></script>
+    <script src="./assets/js/runtime/HemiLightController.js"></script>
+    <script src="./assets/js/runtime/Unit.js"></script>
+    <script src="./assets/js/runtime/Flock.js"></script>
+    <script src="./assets/js/runtime/Base.js"></script>
+    <script src="./assets/js/runtime/CameraManager.js"></script>
+    <script src="./assets/js/runtime/VueMain.js"></script>
+    <script src="./assets/js/runtime/UI.js"></script>
+    <script src="./assets/js/runtime/Main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,94 @@
+.pop-window-enter-active,
+.pop-window-leave-active {
+    transition: all 0.25s ease;
+}
+
+.pop-window-enter-active #pop-bg,
+.pop-window-leave-active #pop-bg {
+    transition: all 0.35s ease;
+}
+
+.pop-window-enter,
+.pop-window-leave-to {
+    opacity: 0;
+}
+
+.pop-window-enter #pop-bg,
+.pop-window-leave-to #pop-bg {
+    opacity: 0;
+}
+
+.thought-enter-active {
+    animation-name: thought-show-anim;
+    animation-duration: 0.25s;
+    animation-fill-mode: forwards;
+}
+
+.thought-leave-active {
+    animation-name: thought-hide-anim;
+    animation-duration: 0.25s;
+    animation-fill-mode: forwards;
+}
+
+.top-msg-enter-active {
+    animation-name: top-msg-show-anim;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+
+.top-msg-leave-active {
+    animation-name: top-msg-hide-anim;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+}
+
+.top-msg-move {
+    transition: transform 1s;
+}
+
+@keyframes top-msg-show-anim {
+    0% {
+        transform: perspective(50vh)rotate3d(0, 1, 0, 30deg) translate3d(-100%, 0, 5vh);
+        opacity: 0;
+    }
+
+    100% {
+        transform: perspective(50vh)rotate3d(0, 1, 0, 0deg);
+        opacity: 1;
+    }
+}
+
+@keyframes top-msg-hide-anim {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: perspective(50vh)translate3d(-100%, 0, 0);
+        opacity: 0;
+    }
+}
+
+@keyframes thought-show-anim {
+    0% {
+        transform: perspective(60vh)rotate3d(1, 0, 0, -10deg) translate3d(0, 0, -10vh);
+        opacity: 0;
+    }
+
+    100% {
+        transform: perspective(60vh) rotate3d(1, 0, 0, 0deg) translate3d(0, -10vh, 0vh);
+        opacity: 1;
+    }
+}
+
+@keyframes thought-hide-anim {
+    0% {
+        transform: perspective(60vh) rotate3d(1, 0, 0, 0deg) translate3d(0, -10vh, 0vh);
+        opacity: 1;
+    }
+
+    100% {
+        transform: perspective(60vh) rotate3d(1, 0, 0, -2deg) translate3d(0, -8vh, -10vh);
+        opacity: 0;
+    }
+}
