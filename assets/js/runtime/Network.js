@@ -23,6 +23,7 @@ var network = new(function Network(database) {
     this.websocket = null;
     this.downloaded = 0;
     this.database = database;
+    this.initThoughtNum = 25;
     this.channelName = '';
     this.roomGroupName = '';
     this.downloadStatus = function () {
@@ -34,14 +35,14 @@ var network = new(function Network(database) {
             let type = i;
             let query_data = {
                 type: type,
-                number: 20,
+                number: this.initThoughtNum,
             }
             $.get(
                 this.baseUrl + URL,
                 query_data,
                 (ret, status) => {
-                    console.log(ret);
-                    ret = JSON.parse(ret)
+                    ret = JSON.parse(ret);
+                    console.log(type,ret['data'].length);
                     this.database.thoughts[type] = ret['data'] || [];
                     this.downloaded++;
                 }

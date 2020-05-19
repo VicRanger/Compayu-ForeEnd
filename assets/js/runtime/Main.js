@@ -1,4 +1,8 @@
 function update() {
+    mouseWheelDelta *= 0.5;
+    if (Math.abs(mouseWheelDelta) < 1e-1) {
+        mouseWheelDelta = 0;
+    }
     T.tick();
     // stats.update();
     for (var i = 0; i < unitList.length; i++) {
@@ -35,23 +39,21 @@ function refineColor(color, x, y) {
 }
 
 function updateHemiLightColor() {
-    if(mainCameraManager.isFocusing()){
-        // tweenHemiLight(hemiLightColorDic[mainCameraManager.focusObj.name], 1);
+    if (mainCameraManager.isFocusing() || mainCameraManager.isRejectAnim) {
         return;
     }
-    var xLerp = -mainCamera.rotation.y / (Math.PI / 3);
-    var yLerp = -mainCamera.rotation.x / (Math.PI / 3);
+    var xLerp = mainCamera.position.x / worldX / baseRangeX;
+    var yLerp = -mainCamera.position.y / worldY / baseRangeY;
     var xOff = Math.abs(xLerp / 2);
     var yOff = Math.abs(yLerp / 2);
-    var xyInterp = yOff / (xOff + yOff);
+    var xyInterp = xOff + yOff == 0 ? 0 : yOff / (xOff + yOff);
     let color = {};
     color.groundColor = interpColor(hemiLightColorDic['default'].groundColor,
         interpColor(interpColor(hemiLightColorDic['happy'].groundColor, hemiLightColorDic['angry'].groundColor, xLerp / 2 + 0.5), interpColor(hemiLightColorDic['worry'].groundColor, hemiLightColorDic['disgust'].groundColor, yLerp / 2 + 0.5), xyInterp), Math.max(xOff, yOff) * 2);
     color.skyColor = interpColor(hemiLightColorDic['default'].skyColor,
         interpColor(interpColor(hemiLightColorDic['happy'].skyColor, hemiLightColorDic['angry'].skyColor, xLerp / 2 + 0.5), interpColor(hemiLightColorDic['worry'].skyColor, hemiLightColorDic['disgust'].skyColor, yLerp / 2 + 0.5), xyInterp), Math.max(xOff, yOff) * 2);
     // refineColor(color,xOff,yOff);
-    tweenHemiLight(color, 2);
-    TweenMax.to(world3D.fog.color,2,color.groundColor);
+    setHemilightColor(color);
 }
 
 function animate() {
@@ -70,10 +72,14 @@ function initStats() {
 }
 
 function initScene() {
-    mainCamera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+    screenX = window.innerWidth;
+    screenY = window.innerHeight;
+    mainCamera = new THREE.PerspectiveCamera(45, screenX / screenY, 0.1, 1000);
     world3D = new THREE.Scene();
     background3D = new THREE.Scene();
-    mainCameraManager = new CameraManager(mainCamera);
+    window.scene = world3D;
+    calcWorldXY();
+    mainCameraManager = new CameraManager(mainCamera, cameraDepth);
     renderer = new THREE.WebGLRenderer({
         alpha: true,
         // antialias: true, //antialias:true/false是否开启反锯齿
@@ -85,9 +91,6 @@ function initScene() {
     renderer.autoClear = false;
     $('#canvas-container').append(renderer.domElement)
     domEvents = new THREEx.DomEvents(mainCamera, renderer.doElement)
-    screenX = window.innerWidth;
-    screenY = window.innerHeight;
-    calcWorldXY();
     console.log(`screenX: ${screenX}, screenY: ${screenY}`);
     console.log(`worldX: ${worldX}, worldY: ${worldY}`);
 

@@ -175,7 +175,7 @@ var baseSettings = [{
     lightIntensity: 0.6,
     baseModelName: 'happyBase',
     initFunc: generateInitFunc([0, 0, -10]),
-    enterFunc: generateEnterFunc([-0.5, -0.5, 0], 1, [-1.75, 0, 1], 4),
+    enterFunc: generateEnterFunc([-0.5, -0.5, 0], 1, [-baseRangeX, 0, 0.5], 4),
     updateFunc: (base) => {
         let obj = base.threeObj;
         obj.rotation.x += T.getDelta() * 0.15;
@@ -191,7 +191,7 @@ var baseSettings = [{
     lightIntensity: 0.6,
     baseModelName: 'angryBase',
     initFunc: generateInitFunc([0, 0, -10]),
-    enterFunc: generateEnterFunc([0.5, 0.5, 0], 1.5, [1.75, 0, 1], 4),
+    enterFunc: generateEnterFunc([0.5, 0.5, 0], 1.5, [baseRangeX, 0, 0.5], 4),
     updateFunc: (base) => {
         let obj = base.threeObj;
         obj.rotation.x += T.getDelta() * 0.15;
@@ -207,7 +207,7 @@ var baseSettings = [{
     lightIntensity: 0.6,
     baseModelName: 'worryBase',
     initFunc: generateInitFunc([0, 0, -10]),
-    enterFunc: generateEnterFunc([-0.5, 0.5, 0], 2, [0, 3, 1], 4),
+    enterFunc: generateEnterFunc([-0.5, 0.5, 0], 2, [0, baseRangeY, 0.5], 4),
     updateFunc: (base) => {
         let obj = base.threeObj;
         obj.rotation.x += T.getDelta() * 0.15;
@@ -223,7 +223,7 @@ var baseSettings = [{
     lightIntensity: 0.6,
     baseModelName: 'disgustBase',
     initFunc: generateInitFunc([0, 0, -10]),
-    enterFunc: generateEnterFunc([0.5, -0.5, 0.5], 2.5, [0, -3, 1], 4),
+    enterFunc: generateEnterFunc([0.5, -0.5, 0.5], 2.5, [0, -baseRangeY, 0.5], 4),
     updateFunc: (base) => {
         let obj = base.threeObj;
         obj.rotation.x += T.getDelta() * 0.15;

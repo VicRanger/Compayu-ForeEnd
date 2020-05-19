@@ -16,7 +16,9 @@ UI.setLogin = function () {
     $('#top-nav').delay(1000).fadeIn(500);
     $('#login-mode').delay(500).fadeIn(500);
     $('#input-panel').delay(500).fadeIn(500);
-    $('#initial-container').css({'z-index':'1'})
+    $('#initial-container').css({
+        'z-index': '1'
+    })
     $('#initial-container').delay(500).animate({
         'background-color': 'rgba(51,51,51,0)'
     }, 1500, 'easeOut')
@@ -30,9 +32,10 @@ UI.setLogin = function () {
         'width': '100%'
     }, 1000, 'easeInOutQuint')
     G.isSetLogin = true;
-    setTimeout(()=>{
-        UI.sendTopMsg('加载完成','点击登录即可进入「空游」');
-    },2500);
+    setTimeout(() => {
+        UI.sendTopMsg('加载完成', '点击登录即可进入「空游」');
+        UI.setEnter();
+    }, 100);
 }
 UI.setEnter = function () {
     $('#bottom-box').addClass('bounce-down-nda')
@@ -44,7 +47,7 @@ UI.setEnter = function () {
     setTimeout(function () {
         $('#initial-container').fadeOut(0);
         var isVisited = $.cookie('isVisited');
-        G.isPlayTutorial = true;
+        // G.isPlayTutorial = true;
         if (isVisited) {
             UI.playTutorial('亲爱的，欢迎来到「空游」', 5, 3);
             setTimeout(() => {
@@ -70,32 +73,32 @@ UI.setEnter = function () {
     audioLoadDic.bg.player.fadeIn = 5;
     // audioLoadDic.bg.player.start();
 }
-UI.showTutorial = function(){
+UI.showTutorial = function () {
     $('#tutorial').css({
-        'z-index' :'20'
+        'z-index': '20'
     })
     $('#tutorial').removeClass('tutorial-hide');
     $('#tutorial').addClass('tutorial-show');
 }
-UI.hideTutorial = function(){
+UI.hideTutorial = function () {
     $('#tutorial').removeClass('tutorial-show');
     $('#tutorial').addClass('tutorial-hide');
-    setTimeout(()=>{
+    setTimeout(() => {
         $('#tutorial').css({
-            'z-index' :'-10'
+            'z-index': '-10'
         })
-    },1000)
+    }, 1000)
 }
-UI.playTutorial = function (text,delay,duration){
-    setTimeout(()=>{
+UI.playTutorial = function (text, delay, duration) {
+    setTimeout(() => {
         UI.fillInTutorial(text);
         UI.showTutorial();
-        setTimeout(()=>{
+        setTimeout(() => {
             UI.hideTutorial();
-        },duration*1000);
-    },delay*1000);
+        }, duration * 1000);
+    }, delay * 1000);
 }
-UI.fillInTutorial = function(text){
+UI.fillInTutorial = function (text) {
     $('#tutorial').html(text);
 }
 
@@ -110,9 +113,11 @@ UI.fillInThought = function (data) {
 }
 UI.showThought = function () {
     UI.hideExpress();
-    let unit = G.clickUnit;
-    UI.fillInThought(unit.thought);
-    vm.thought.show = true;
+    // let unit = G.clickUnit;
+    // UI.fillInThought(unit.thought);
+    setTimeout(() => {
+        vm.thought.show = true;
+    }, 300)
 }
 UI.hideThought = function () {
     vm.thought.show = false;
@@ -128,10 +133,12 @@ UI.showExpress = function () {
         return;
     }
     console.log('showExpress');
-    vm.express.show = true;
     vm.express.textContent = '';
     let base = G.clickBase;
     vm.express.typeText = UI.subtitle[base.name];
+    setTimeout(() => {
+        vm.express.show = true;
+    }, 300)
 }
 UI.hideExpress = function () {
     vm.express.show = false;
@@ -152,12 +159,12 @@ UI.postExpress = function () {
     network.wsPostThought(data, postThoughtCallback);
     return true;
 }
-UI.sendTopMsg = function(title, content, func=null,time = -1){
+UI.sendTopMsg = function (title, content, func = null, time = -1) {
     console.log(this);
     var data = {
         title: title,
         content: content,
-        func:func
+        func: func
     }
     vm.topMsg.push(data)
     if (time > 0) {
@@ -165,7 +172,7 @@ UI.sendTopMsg = function(title, content, func=null,time = -1){
             vm.topMsg.remove(data);
         }, time);
     }
-    
+
 }
 
 $('#user-mode').on('click', function () {

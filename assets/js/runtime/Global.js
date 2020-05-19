@@ -5,6 +5,8 @@ var world3D, background3D, mainCamera, renderer, orbitController = null;
 var bgHemiLight, wdHemiLight;
 var domEvents = null;
 var stats = null;
+var mainCameraManager = null;
+var orbitController = null;
 var unitList = [];
 var flockDic = {};
 var unitMeshList = [];
@@ -13,8 +15,9 @@ var wallMeshList = [];
 var collisionMeshList = [];
 var baseList = [];
 var baseDic = {};
-var mainCameraManager = null;
 var screenX = 0;
+var baseRangeX = 2;
+var baseRangeY = 3;
 var screenY = 0;
 var worldX = 0;
 var worldY = 0;
@@ -26,8 +29,10 @@ var mouseX = 0;
 var mouseY = 0;
 var mouseXn = 0;
 var mouseYn = 0;
+var mouseWheelDelta = 0;
 var extendRatio = 4;
-var cameraDepth = 10;
+var cameraFieldScale = 3;
+var cameraDepth = 0;
 var isDebugEnable = false;
 var TAG = {
     UNIT: 0x00000010,
@@ -53,7 +58,7 @@ var G = new (function G() {
     this.clickUnit = null;
     this.clickBase = null;
     this.isStopMeshClick = false;
-    this.isPlayTutorial = true;
+    this.isPlayTutorial = false;
     this.isStopWindowClick = false;
 
     this.setLoadComplete = function () {
@@ -80,7 +85,6 @@ var G = new (function G() {
                 loadWorld();
                 addEvents();
                 UI.setLogin();
-                // UI.setEnter();
                 this.setLoadComplete();
             }, 1000);
             this.isLoadComplete = true;
@@ -114,6 +118,7 @@ Pace.on("update", function (percent) {
 var T = (function () {
     this.deltaTime = 0;
     this.clockTime = 0;
+    this.scaledDeltaTime = 0;
     this.timeScale = 1;
     return this;
 })()
@@ -127,6 +132,7 @@ T.reset = function () {
 T.tick = function () {
     let clock = Date.now() / 1000;
     this.deltaTime = clock - this.clockTime;
+    this.scaledDeltaTime = this.timeScale * this.deltaTime;
     this.clockTime = clock;
 }
 Array.prototype.remove = function (val) {

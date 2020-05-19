@@ -20,13 +20,13 @@
 
 .thought-enter-active {
     animation-name: thought-show-anim;
-    animation-duration: 0.25s;
+    animation-duration: 0.4s;
     animation-fill-mode: forwards;
 }
 
 .thought-leave-active {
     animation-name: thought-hide-anim;
-    animation-duration: 0.25s;
+    animation-duration: 0.2s;
     animation-fill-mode: forwards;
 }
 
