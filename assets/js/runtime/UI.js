@@ -34,7 +34,7 @@ UI.setLogin = function () {
     G.isSetLogin = true;
     setTimeout(() => {
         UI.sendTopMsg('加载完成', '点击登录即可进入「空游」');
-        UI.setEnter();
+        // UI.setEnter();
     }, 100);
 }
 UI.setEnter = function () {
@@ -47,7 +47,7 @@ UI.setEnter = function () {
     setTimeout(function () {
         $('#initial-container').fadeOut(0);
         var isVisited = $.cookie('isVisited');
-        // G.isPlayTutorial = true;
+        G.isPlayTutorial = true;
         if (isVisited) {
             UI.playTutorial('亲爱的，欢迎来到「空游」', 5, 3);
             setTimeout(() => {
@@ -71,7 +71,7 @@ UI.setEnter = function () {
     }, 1000);
     audioLoadDic.bg.player.loop = true;
     audioLoadDic.bg.player.fadeIn = 5;
-    // audioLoadDic.bg.player.start();
+    audioLoadDic.bg.player.start();
 }
 UI.showTutorial = function () {
     $('#tutorial').css({
