@@ -34,6 +34,7 @@ UI.setLogin = function () {
     G.isSetLogin = true;
     setTimeout(() => {
         UI.sendTopMsg('加载完成', '点击登录即可进入「空游」');
+        User.checkLoginState();
         // UI.setEnter();
     }, 100);
 }
@@ -43,11 +44,11 @@ UI.setEnter = function () {
         $('#login-panel').addClass('bounce-down-nda')
     }, 100);
     $('#compayu-title').addClass('bounce-up-nda')
-    $('#top-nav').addClass('bounce-upright-nda')
+    // $('#top-nav').addClass('bounce-upright-nda')
     setTimeout(function () {
         $('#initial-container').fadeOut(0);
         var isVisited = $.cookie('isVisited');
-        G.isPlayTutorial = true;
+        // G.isPlayTutorial = true;
         if (isVisited) {
             UI.playTutorial('亲爱的，欢迎来到「空游」', 5, 3);
             setTimeout(() => {
@@ -160,7 +161,6 @@ UI.postExpress = function () {
     return true;
 }
 UI.sendTopMsg = function (title, content, func = null, time = -1) {
-    console.log(this);
     var data = {
         title: title,
         content: content,
@@ -179,15 +179,15 @@ $('#user-mode').on('click', function () {
     $('#input-panel').css({
         'transform': 'translateX(0%)'
     })
-    $('#random-mode').removeClass('mode-selected')
-    $('#user-mode').addClass('mode-selected')
+    $('#random-mode').removeClass('mode-selected-random')
+    $('#user-mode').addClass('mode-selected-user')
 })
 $('#random-mode').on('click', function () {
     $('#input-panel').css({
         'transform': 'translateX(-50%)'
     })
-    $('#user-mode').removeClass('mode-selected')
-    $('#random-mode').addClass('mode-selected')
+    $('#user-mode').removeClass('mode-selected-user')
+    $('#random-mode').addClass('mode-selected-random')
 })
-$('#random-mode').trigger('click');
+$('#user-mode').trigger('click');
 UI.setLoading();

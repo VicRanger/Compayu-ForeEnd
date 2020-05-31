@@ -243,7 +243,7 @@ function rangeMeshOnClick(e) {
     if (obj) {
         G.clickUnit = obj;
         mainCameraManager.lookAt(obj);
-        console.log(mainCameraManager.focusType);
+        // console.log(mainCameraManager.focusType);
         TweenMax.to(obj.threeObj.material, 1, {
             emissiveIntensity: 1
         })
@@ -361,6 +361,7 @@ function addThoughtByData(data) {
     console.log(base);
     console.log(database.thoughts);
     console.log(data['type_raw']);
+    console.log(database.thoughts[data['type_raw']]);
     database.thoughts[data['type_raw']].push(data);
     var o = addUnit(base.name, base.threeObj.position.clone().add(new THREE.Vector3(0, 0, -2)), new THREE.Vector3(random(-1, 1), random(-1, 1), random(-1, 1)), flockDic[base.name], data);
     TweenMax.fromTo(o, 1, {

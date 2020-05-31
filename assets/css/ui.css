@@ -27,6 +27,7 @@ input {
     min-width: 15rem;
     align-items: stretch;
 }
+
 #top-msg-layer span {
     width: 100%;
 }
@@ -34,7 +35,7 @@ input {
 .top-msg-title {
     padding: 0.5rem 0.75rem 0.1rem 1rem;
     font-weight: 500;
-    word-break:break-all;
+    word-break: break-all;
 }
 
 .top-msg-content {
@@ -43,17 +44,18 @@ input {
     align-items: flex-start;
     padding: 0.1rem 0.25rem 0.5rem 0.75rem;
     font-size: 0.8rem;
-    word-break:break-all;
+    word-break: break-all;
 }
+
 .top-msg-content p {
-    font-weight:500;
+    font-weight: 500;
     display: flex;
     width: 100%;
     justify-content: center;
 }
 
 .top-msg-close {
-    background-color: rgba(0, 0, 0, 0.1) ;
+    background-color: rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     font-size: 0.85rem;
     padding: 0.25rem;
@@ -63,16 +65,17 @@ input {
     max-width: 4rem;
     min-width: 3rem;
 }
+
 .top-msg-close:hover {
-    background-color: rgba(0, 0, 0, 0.05) ;
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 .top-msg-main {
-    background-color: rgba(0, 0, 0, 0.1) ;
+    background-color: rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    flex:1;
+    flex: 1;
 }
 
 .top-msg-box {
@@ -85,12 +88,12 @@ input {
     flex-direction: row;
     user-select: none;
     align-items: stretch;
-    margin-bottom:1rem;
+    margin-bottom: 1rem;
     overflow: hidden;
 }
 
 .top-msg-box:hover {
-    box-shadow:0 0 10px -5px #eee;
+    box-shadow: 0 0 10px -5px #eee;
 }
 
 #pop-layer {
@@ -143,6 +146,7 @@ input {
     justify-content: center;
     perspective: 100vw;
     transform-style: preserve-3d;
+    transform: rotateX(0.00001deg) rotateY(0.00001deg);
 }
 
 #compayu-title {
@@ -203,6 +207,7 @@ input {
     box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.1);
     flex-direction: column;
     align-items: flex-start;
+    justify-content: space-around;
     overflow: hidden;
     /* display: none; */
 }
@@ -219,23 +224,23 @@ input {
 }
 
 #login-mode {
+    margin: 1rem 0;
     width: 25rem;
     display: flex;
     flex-direction: row;
 }
 
-#login-mode .mode {
+.mode {
     user-select: none;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    margin: 0 0.5rem;
+    margin: 0 0.75rem;
     height: 3rem;
     width: 10rem;
-    font-size: 1.4rem;
-    font-weight: 100;
-    border: 1px solid #65a5e8;
+    font-size: 1.3rem;
+    border: 1px solid #999;
     border-radius: 0.5rem;
-    color: #65a5e8;
+    color: #999;
     transform: translate3d(0vh, 0.25vh, 6vh);
 }
 
@@ -247,69 +252,97 @@ input {
     margin-right: 1rem;
 }
 
-#login-mode .mode-selected {
+#login-mode .mode-selected-random {
     color: #fff;
     background-color: #65a5e8;
+    border: 1px solid #65a5e8;
     transform: translate3d(0, 0vh, 4vh);
+}
 
+#login-mode .mode-selected-user {
+    color: #fff;
+    background-color: #EB9400;
+    border: 1px solid #EB9400;
+    transform: translate3d(0, 0vh, 4vh);
 }
 
 #input-panel {
     transition: all 0.3s ease-in-out;
-    transform: translateX(25%);
+    transform: translateX(0%);
     width: 200%;
     flex-direction: row;
-}
-
-#input-panel div {
-    flex: 1;
+    height: 80%;
 }
 
 #user-login {
     flex-direction: column;
+    flex: 1;
     height: 100%;
 }
 
-#user-login input {
-    display: flex;
-    font-weight: 100;
+#random-login {
+    flex: 1;
+
+    height: 100%;
 }
 
 input::-webkit-input-placeholder {
     color: #333;
 }
 
-.input-jw {
+#user-login-inputs {
+    width: 100%;
+    flex-direction: column;
+    margin: 0 0 0.5rem 0;
+    flex: 1;
+}
+.input-login {
+    transition: all 0.3s ease-in-out;
+    font-family: 'Roboto';
     background: none;
     outline: none;
-    border: none;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
     line-height: 1.8rem;
-    font-size: 1.4rem;
-    width: 20rem;
-    padding: 0.3rem;
-    border-bottom: 1px solid #333;
-    margin: 0.5rem 0;
+    font-size: 1rem;
+    width: 90%;
+    max-width: 18rem;
+    padding: 0.25rem 0.75rem;
+    margin: 0.3rem 0;
+    font-weight: 500;
 }
 
-#user-login-opts {
+.input-login:focus {
+    border: 1px solid #EB9400;
+    box-shadow: 0 0 10px -5px #EB9400;
+}
+
+.input-login::placeholder {
+    font-weight: lighter;
+}
+
+.login-opts {
+    flex-direction: column;
+    width: 100%;
+    margin: 0.5rem 0 0 0;
+}
+
+.login-top {
+    flex-direction: column;
+}
+
+.login-bottom {
+    flex: 1;
     flex-direction: row;
     width: 100%;
-    align-items: flex-start;
-    padding: 2rem 0 0 0;
-}
-
-#user-login-opts div {
-    color: #333;
-    font-weight: 100;
-    flex: 1;
+    justify-content: space-between;
+    padding-bottom: 0.5rem;
+    margin: 0.5rem 0;
 }
 
 #user-login-left {
     justify-content: flex-start;
     padding: 0 0 0 2rem;
-}
-
-#user-login-left input {
     margin-right: 0.5rem;
 }
 
@@ -324,34 +357,54 @@ input::-webkit-input-placeholder {
     margin: 0.2rem;
 }
 
+.login-opts-text {
+    color: #333;
+    font-weight: 400;
+    font-size: 0.9rem;
+    margin: 0 0.2rem;
+}
+
 #random-text {
     display: flex;
-    font-weight: 300;
     font-size: 1.2rem;
     line-height: 2rem;
     flex-direction: column;
     letter-spacing: 0.05rem;
-    margin: 1rem 0;
+    margin: 0 0 1.5rem 0;
 }
 
 #random-panel {
     margin: 0 2.5rem;
     padding: 1rem 0;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
-#random-enter {
+.btn-random-login {
     transition: all 0.3s ease;
     user-select: none;
     cursor: pointer;
-    padding: 0.75rem 1.25rem;
+    padding: 0.6rem 1.25rem;
     line-height: 1rem;
-    font-size: 1.3rem;
-    font-weight: 200;
+    font-size: 1.25rem;
     border-radius: 0.5rem;
-    border: 1px solid #65a5e8;
-    color: #65a5e8;
+    border: 2px solid #65a5e8;
+    background-color: #65a5e8;
+    color: #fff;
+}
+
+.btn-user-login {
+    transition: all 0.3s ease;
+    user-select: none;
+    cursor: pointer;
+    padding: 0.6rem 1.25rem;
+    line-height: 1rem;
+    font-size: 1.25rem;
+    border-radius: 0.5rem;
+    border: 2px solid #EB9400;
+    background-color: #EB9400;
+    color: #fff;
+    margin: -0.5rem 0 0.5rem 0;
 }
 
 #pop-bg {
@@ -728,4 +781,72 @@ input::-webkit-input-placeholder {
         transform: translateY(-500px);
         transform: translateX(500px);
     }
+}
+
+.checkbox-autologin {
+    display: flex;
+    position: relative;
+}
+
+.checkbox-autologin input[type="checkbox"] {
+    width: auto;
+    opacity: 0.00000001;
+    position: absolute;
+    left: 0;
+}
+.checkbox-autologin label {
+    position: relative;
+}
+.checkbox-autologin label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 16px;
+    height: 16px;
+    transition: transform 0.28s ease;
+    border-radius: 3px;
+    border: 2px solid #ccc;
+}
+.checkbox-autologin label:after {
+  content: '';
+    display: block;
+    width: 10px;
+    height: 4px;
+    border-bottom: 2px solid #ccc;
+    border-left: 2px solid #ccc;
+    transform: rotate(-45deg) scale(0);
+    transition: transform ease 0.25s;
+    will-change: transform;
+    position: absolute;
+    top: 6px;
+    left: 4px;
+}
+.checkbox-autologin input[type="checkbox"]:checked ~ label::before {
+    border: 2px solid #EB9400;
+    color: #EB9400;
+}
+
+.checkbox-autologin input[type="checkbox"]:checked ~ label::after {
+    transform: rotate(-45deg) scale(1);
+    border-bottom: 2px solid #EB9400;
+    border-left: 2px solid #EB9400;
+}
+.checkbox-autologin input[type="checkbox"] ~ label span{
+    transition: all 0.3s ease-in-out;
+}
+.checkbox-autologin input[type="checkbox"]:checked ~ label span{
+    color:#EB9400;
+    font-weight: bold;
+}
+
+.checkbox-autologin label {
+    display: block;
+    padding-left: 1.6rem;
+    margin-bottom: 0;
+    font-weight: normal;
+    cursor: pointer;
+}
+.checkbox-autologin input[type="checkbox"]:focus + label::before {
+    outline: 0;
 }

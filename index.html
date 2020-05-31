@@ -72,22 +72,24 @@
         </transition>
         <div id="top-msg-layer">
             <transition-group name="top-msg" tag="span">
-            <div v-for="(msg,i) in topMsg" :key="i" class="top-msg-box" >
-                <div @click="callTopMsg(i)" class="top-msg-main">
-                    <div v-html="msg.title" class="top-msg-title"></div>
-                    <div v-html="msg.content" class="top-msg-content"></div>
+                <div v-for="(msg,i) in topMsg" :key="i" class="top-msg-box">
+                    <div @click="callTopMsg(i)" class="top-msg-main">
+                        <div v-html="msg.title" class="top-msg-title"></div>
+                        <div v-html="msg.content" class="top-msg-content"></div>
+                    </div>
+                    <div @click="closeTopMsg(i)" class="top-msg-close">关闭</div>
                 </div>
-                <div @click="closeTopMsg(i)" class="top-msg-close">关闭</div>
-            </div>
             </transition-group>
+        </div>
+        <div id="top-nav">
+            <div><a href="./about/about.html" target="_self">关于我们</a></div>
+            <div id="about-us" @click="showAboutUs">开发者信息</div>
+            <div id="user-license" @click="showUserLicense">用户协议</div>
+            <div v-if="user.isLogin">{{user.nickname}}: <span>登出</span></div>
         </div>
         <div id="canvas-container"></div>
         <div id="initial-container">
-            <div id="top-nav">
-                <div><a href="./about/about.html" target="_self">关于我们</a></div>
-                <div id="about-us" @click="showAboutUs">开发者信息</div>
-                <div id="user-license" @click="showUserLicense">用户协议</div>
-            </div>
+
             <div id="bottom-box">
                 生活中不能说的秘密，请把它留在这里
             </div>
@@ -110,15 +112,24 @@
                     </div>
                     <div id="input-panel">
                         <div id="user-login">
-                            <input class="input-jw" type="text" placeholder="账号" />
-                            <input class="input-jw" type="password" placeholder="密码" />
-                            <div id="user-login-opts">
-                                <div id="user-login-left">
-                                    <input type="checkbox" />记住密码
+                            <div id="user-login-inputs">
+                                <input class="input-login" type="text" placeholder="邮箱或者手机号" v-model="user.name" />
+                                <input class="input-login" type="password" placeholder="密码" v-model="user.password" />
+                            </div>
+                            <div class="login-opts">
+                                <div class="login-top">
+                                    <div @click="userLogin" class="btn-user-login" v-if="user.password.length>0 && user.name.length>0">登录</div>
                                 </div>
-                                <div id="user-login-right">
-                                    <div>忘记密码</div>
-                                    <div>没有账号？立即注册</div>
+                                <div class="login-bottom">
+                                    <div id="user-login-left">
+                                        <div class="checkbox-autologin">
+                                            <input type="checkbox" id="autologin" v-model="user.autoLogin">
+                                            <label for="autologin"><span class="login-opts-text">自动登录</span></label>
+                                         </div>
+                                    </div>
+                                    <div id="user-login-right">
+                                        <div><span class="login-opts-text">没有账号？立即注册</span></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -128,7 +139,7 @@
                                     <div>以过客的身份</div>
                                     <div>去看看别人的故事吧</div>
                                 </div>
-                                <div @click="randomEnter" id="random-enter">登录</div>
+                                <div @click="randomEnter" class="btn-random-login" id="random-enter">进入</div>
                             </div>
 
                         </div>
@@ -138,6 +149,7 @@
         </div>
     </div>
     <script src="./assets/js/lib/jquery3.js"></script>
+    <script src="./assets/js/lib/axios.min.js"></script>
     <script src="./assets/js/lib/vue.js"></script>
     <script src="./assets/js/lib/jquery.cookie.js"></script>
     <script src="./assets/js/lib/jquery.easing.1.3.js"></script>
@@ -149,6 +161,7 @@
     <script src="./assets/js/lib/OBJLoader.js"></script>
     <script src="./assets/js/lib/stats.min.js"></script>
     <script src="./assets/js/lib/Tone.js"></script>
+    <script src="./assets/js/lib/md5.js"></script>
     <script src="./assets/js/runtime/Database.js"></script>
     <script src="./assets/js/runtime/Network.js"></script>
     <script src="./assets/js/runtime/Global.js"></script>
@@ -162,6 +175,7 @@
     <script src="./assets/js/runtime/Flock.js"></script>
     <script src="./assets/js/runtime/Base.js"></script>
     <script src="./assets/js/runtime/CameraManager.js"></script>
+    <script src="./assets/js/runtime/User.js"></script>
     <script src="./assets/js/runtime/VueMain.js"></script>
     <script src="./assets/js/runtime/UI.js"></script>
     <script src="./assets/js/runtime/Logic.js"></script>
