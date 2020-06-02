@@ -6,14 +6,7 @@ ReceiveMsgType = {
 SendMsgType = {
     SendThought: 1,
 }
-var postThoughtCallback = (data) => {
-    let o = addThoughtByData(data);
-    mainCameraManager.stopFocus();
-    mainCameraManager.lookAt(o);
-    console.log('add express successfully');
-    UI.hideExpress();
-    return o;
-}
+
 var network = new(function Network(database) {
     this.url = '127.0.0.1:8000';
     // this.url = 's.wzz.ink';
@@ -26,40 +19,43 @@ var network = new(function Network(database) {
     this.initThoughtNum = 25;
     this.channelName = '';
     this.roomGroupName = '';
-    this.post = function(url,data) {
+    this.post = function (url, data) {
         return new Promise((resolve, reject) => {
-            axios.post(this.baseUrl + url,data,{withCredentials:true})
-            .then((res)=>{
-                resolve(res);
-            }).catch((err)=>{
-                reject(err);
-            })
+            axios.post(this.baseUrl + url, data, {
+                    withCredentials: true
+                })
+                .then((res) => {
+                    resolve(res);
+                }).catch((err) => {
+                    reject(err);
+                })
         })
     }
-    this.get = function(url,data) {
+    this.get = function (url, data) {
         return new Promise((resolve, reject) => {
-            axios.get(this.baseUrl + url,{params:data})
-            .then((res)=>{
-                resolve(res);
-            }).catch((err)=>{
-                reject(err);
-            })
+            axios.get(this.baseUrl + url, {
+                    params: data
+                })
+                .then((res) => {
+                    resolve(res);
+                }).catch((err) => {
+                    reject(err);
+                })
         })
     }
     this.downloadStatus = function () {
         return this.downloaded / Object.keys(this.database.thoughts).length;
     }
-    this.downloadThought = ()=> {
+    this.downloadThought = () => {
         let URL = '/compayu/thought/';
         for (i in database.thoughts) {
             let type = i;
-            let query_data = {
-                type: type,
+            let query = {
+                type_raw: type,
                 number: this.initThoughtNum,
             }
-            this.get(URL, query_data)
+            this.get(URL, query)
                 .then((res) => {
-                    console.log(res)
                     res = res['data'];
                     console.log(type, res['data'].length);
                     this.database.thoughts[type] = res['data'] || [];
@@ -70,21 +66,30 @@ var network = new(function Network(database) {
                 });
         }
     }
-    // postThought已弃用
-    this.postThought = function (data, callback) {
-        console.log("postThought已弃用，请不要调用")
-        let URL = '/compayu/thought/';
-        let query_data = data
-        console.log(data)
-        this.post(URL,query_data)
-        .then((res) => {
-            res = res['data'];
-            console.log(res)
-            callback(res['data']);
+    this.postThought = function (data) {
+        return new Promise((resolve, reject) => {
+            let URL = '/compayu/thought/';
+            console.log(data)
+            this.post(URL, data)
+                .then((res) => {
+                    res = res['data'];
+                    console.log(res)
+                    this.wsPostThought(res['data']);
+                    resolve(res);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    reject(err);
+                });
         })
-        .catch((error) => {
-            console.log(error);
-        });
+    }
+    this.postThoughtCallback = (data) => {
+        let o = addThoughtByData(data);
+        mainCameraManager.stopFocus();
+        mainCameraManager.lookAt(o);
+        console.log('add express successfully');
+        UI.hideExpress();
+        return o;
     }
     this.initWebsocket = function () {
         if (typeof (WebSocket) === "undefined") {
@@ -119,7 +124,7 @@ var network = new(function Network(database) {
     this.websocketOnOpen = function () {
         console.log('Websocket连接成功');
     }
-    this.websocketOnMessage = function (e) {
+    this.websocketOnMessage = (e) =>{
         let msg = JSON.parse(e.data);
         switch (msg['msg_type']) {
             case ReceiveMsgType.Init:
@@ -130,7 +135,8 @@ var network = new(function Network(database) {
                 UI.sendTopMsg('WebSocket连接成功', `组ID：${this.roomGroupName}<br />连接ID：${this.channelName}`);
                 break;
             case ReceiveMsgType.ReceiveThoughtSuccess:
-                var o = postThoughtCallback(msg.data);
+                console.log(this);
+                var o = this.postThoughtCallback(msg.data);
                 UI.sendTopMsg('成功入住', '您的情绪成功入住「空游」<br /><p>点击跟随</p>', func = () => {
                     focusOnUnit(o)
                 });

@@ -49,9 +49,9 @@ function updateHemiLightColor() {
     var xyInterp = xOff + yOff == 0 ? 0 : yOff / (xOff + yOff);
     let color = {};
     color.groundColor = interpColor(hemiLightColorDic['default'].groundColor,
-        interpColor(interpColor(hemiLightColorDic['happy'].groundColor, hemiLightColorDic['angry'].groundColor, xLerp / 2 + 0.5), interpColor(hemiLightColorDic['worry'].groundColor, hemiLightColorDic['disgust'].groundColor, yLerp / 2 + 0.5), xyInterp), Math.max(xOff, yOff) * 2);
+        interpColor(interpColor(hemiLightColorDic['happy'].groundColor, hemiLightColorDic['angry'].groundColor, xLerp / 2 + 0.5), interpColor(hemiLightColorDic['sad'].groundColor, hemiLightColorDic['disgust'].groundColor, yLerp / 2 + 0.5), xyInterp), Math.max(xOff, yOff) * 2);
     color.skyColor = interpColor(hemiLightColorDic['default'].skyColor,
-        interpColor(interpColor(hemiLightColorDic['happy'].skyColor, hemiLightColorDic['angry'].skyColor, xLerp / 2 + 0.5), interpColor(hemiLightColorDic['worry'].skyColor, hemiLightColorDic['disgust'].skyColor, yLerp / 2 + 0.5), xyInterp), Math.max(xOff, yOff) * 2);
+        interpColor(interpColor(hemiLightColorDic['happy'].skyColor, hemiLightColorDic['angry'].skyColor, xLerp / 2 + 0.5), interpColor(hemiLightColorDic['sad'].skyColor, hemiLightColorDic['disgust'].skyColor, yLerp / 2 + 0.5), xyInterp), Math.max(xOff, yOff) * 2);
     // refineColor(color,xOff,yOff);
     setHemilightColor(color);
 }

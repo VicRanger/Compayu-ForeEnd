@@ -1,7 +1,7 @@
 div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /* display: flex; */
+    /* justify-content: center;
+    align-items: center; */
 }
 
 input {
@@ -14,9 +14,13 @@ input {
     position: absolute;
     background-color: rgb(51, 51, 51);
     z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #top-msg-layer {
+    display: flex;
     left: 1rem;
     top: 1rem;
     height: auto;
@@ -33,6 +37,7 @@ input {
 }
 
 .top-msg-title {
+    display: flex;
     padding: 0.5rem 0.75rem 0.1rem 1rem;
     font-weight: 500;
     word-break: break-all;
@@ -55,6 +60,7 @@ input {
 }
 
 .top-msg-close {
+    display: flex;
     background-color: rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     font-size: 0.85rem;
@@ -64,6 +70,8 @@ input {
     width: 4vw;
     max-width: 4rem;
     min-width: 3rem;
+    justify-content: center;
+    align-items: center;
 }
 
 .top-msg-close:hover {
@@ -97,23 +105,28 @@ input {
 }
 
 #pop-layer {
+    display: flex;
     width: 100vw;
     height: 100vh;
+    align-items: center;
     position: absolute;
     z-index: 20;
+    justify-content: center;
+    align-items: center;
 }
 
 #top-nav {
+    display: flex;
     position: absolute;
     height: 3rem;
     top: 0;
     flex-direction: row;
     width: 100%;
+    align-items: center;
     justify-content: flex-end;
     padding: 0 1rem 0 0;
     color: #fff;
     z-index: 5;
-    display: none;
 }
 
 #top-nav a {
@@ -122,41 +135,48 @@ input {
 }
 
 #top-nav div {
+    display: flex;
     margin: 0 0.8rem;
     user-select: none;
     cursor: pointer;
 }
 
 #bottom-box {
+    display: flex;
     width: 50vw;
     height: 3rem;
     color: #fff;
     position: absolute;
+    justify-content: center;
+    align-items: center;
     bottom: 0;
     border-radius: 0.8rem;
     margin: 0 0 1rem 0;
-    display: none;
-
 }
 
 #center-box {
-    width: 25rem;
+    display: flex;
+    min-width: 25rem;
+    width: 35vh;
+    max-width: 50rem;
     position: absolute;
     flex-direction: column;
     justify-content: center;
     perspective: 100vw;
     transform-style: preserve-3d;
     transform: rotateX(0.00001deg) rotateY(0.00001deg);
+    user-select: none;
 }
 
 #compayu-title {
+    display: flex;
     width: 100%;
     flex-direction: column;
     padding: 1rem 0 0.6rem 0;
     color: #fff;
     margin: 0 0 2rem 0;
-
-
+    justify-content: center;
+    align-items: center;
 }
 
 #compayu-title .title-desc {
@@ -180,6 +200,7 @@ input {
 }
 
 #compayu-title .title-chs {
+    display: flex;
     font-size: 3rem;
     font-weight: 100;
     line-height: 3rem;
@@ -199,9 +220,11 @@ input {
 
 #login-panel {
     /* margin: 2rem 0 0 0; */
+    display: flex;
     border-radius: 0.5rem;
     width: 100%;
     height: 1rem;
+    max-height: 20rem;
     /* background-color: #fff; */
     border: 1px solid #fff;
     box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.1);
@@ -209,7 +232,6 @@ input {
     align-items: flex-start;
     justify-content: space-around;
     overflow: hidden;
-    /* display: none; */
 }
 
 /* .loading-container #login-mode,.loading-container #input-panel{
@@ -225,23 +247,32 @@ input {
 
 #login-mode {
     margin: 1rem 0;
-    width: 25rem;
+    width: 35vh;
+    min-width: 25rem;
+    max-width: 50rem;
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .mode {
+    display: flex;
     user-select: none;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    margin: 0 0.75rem;
+    margin: 0 1rem;
     height: 3rem;
-    width: 10rem;
+    width: 11vh;
+    max-width: 15rem;
+    min-width: 8.5rem;
     font-size: 1.3rem;
     border: 1px solid #999;
     border-radius: 0.5rem;
     color: #999;
     transform: translate3d(0vh, 0.25vh, 6vh);
+    justify-content: center;
+    align-items: center;
 }
 
 #login-mode div:nth-child(1) {
@@ -267,22 +298,28 @@ input {
 }
 
 #input-panel {
+    display: flex;
     transition: all 0.3s ease-in-out;
     transform: translateX(0%);
     width: 200%;
     flex-direction: row;
     height: 80%;
+    justify-content: center;
+    align-items: center;
 }
 
-#user-login {
+.user-login {
+    display: flex;
     flex-direction: column;
     flex: 1;
     height: 100%;
 }
 
-#random-login {
+.random-login {
     flex: 1;
-
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 100%;
 }
 
@@ -290,12 +327,16 @@ input::-webkit-input-placeholder {
     color: #333;
 }
 
-#user-login-inputs {
+.user-login-inputs {
+    display: flex;
     width: 100%;
     flex-direction: column;
-    margin: 0 0 0.5rem 0;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem 0;
     flex: 1;
 }
+
 .input-login {
     transition: all 0.3s ease-in-out;
     font-family: 'Roboto';
@@ -322,31 +363,50 @@ input::-webkit-input-placeholder {
 }
 
 .login-opts {
+    display: flex;
     flex-direction: column;
+    align-items: center;
     width: 100%;
     margin: 0.5rem 0 0 0;
 }
 
 .login-top {
+    display: flex;
+    width: 100%;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-top-auto {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin: -0.5rem 0 0.5rem 0;
+    position: relative;
 }
 
 .login-bottom {
+    display: flex;
     flex: 1;
     flex-direction: row;
     width: 100%;
     justify-content: space-between;
-    padding-bottom: 0.5rem;
-    margin: 0.5rem 0;
+    align-items: flex-end;
+    margin: 0 0 1rem 0;
 }
 
 #user-login-left {
+    display: flex;
     justify-content: flex-start;
     padding: 0 0 0 2rem;
     margin-right: 0.5rem;
 }
 
 #user-login-right {
+    display: flex;
     justify-content: flex-end;
     flex-direction: column;
     align-items: flex-end;
@@ -354,6 +414,7 @@ input::-webkit-input-placeholder {
 }
 
 #user-login-right div {
+    display: flex;
     margin: 0.2rem;
 }
 
@@ -364,20 +425,79 @@ input::-webkit-input-placeholder {
     margin: 0 0.2rem;
 }
 
+.login-auto {
+    margin: 0 0 0.75rem 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-auto div {
+    margin: 0.25rem 0;
+}
+
+.login-auto-nickname {
+    color: #EB9400;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.login-auto-avatar img {
+    transition: all 0.3s ease-in-out;
+    width: 10vh;
+    max-width: 6rem;
+    min-width: 3rem;
+    height: 10vh;
+    max-height: 6rem;
+    min-height: 3rem;
+    border-radius: 50%;
+    padding: 0.1rem;
+    border: 1px solid #EB9400;
+}
+
+.login-auto-avatar img:hover {
+    box-shadow: 0 0 10px -3px #EB9400;
+}
+
+
+.login-change-user {
+    position: absolute;
+    left: 50%;
+    margin: 0.2rem 0 0 5rem;
+}
+
+.btn-gray {
+    transition: all 0.3s ease;
+    user-select: none;
+    cursor: pointer;
+    padding: 0.25rem 0;
+    font-size: 1rem;
+    color: #ccc;
+}
+
+.btn-gray:hover {
+    color: #333;
+}
+
 #random-text {
     display: flex;
     font-size: 1.2rem;
     line-height: 2rem;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     letter-spacing: 0.05rem;
     margin: 0 0 1.5rem 0;
 }
 
 #random-panel {
+    display: flex;
     margin: 0 2.5rem;
     padding: 1rem 0;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
 }
 
 .btn-random-login {
@@ -393,7 +513,12 @@ input::-webkit-input-placeholder {
     color: #fff;
 }
 
+.btn-random-login:hover {
+    box-shadow: 0 0 20px -5px #65a5e8;
+}
+
 .btn-user-login {
+    width: fit-content;
     transition: all 0.3s ease;
     user-select: none;
     cursor: pointer;
@@ -404,11 +529,16 @@ input::-webkit-input-placeholder {
     border: 2px solid #EB9400;
     background-color: #EB9400;
     color: #fff;
-    margin: -0.5rem 0 0.5rem 0;
+    margin: 0.5rem 0 0 0;
+}
+
+.btn-user-login:hover {
+    box-shadow: 0 0 20px -5px #EB9400;
 }
 
 #pop-bg {
     background-color: rgba(0, 0, 0, 0.3);
+    align-items: center;
     width: 100vw;
     height: 100vh;
     position: absolute;
@@ -416,6 +546,7 @@ input::-webkit-input-placeholder {
 }
 
 #pop-panel {
+    display: flex;
     position: absolute;
     z-index: 21;
     flex-direction: column;
@@ -429,7 +560,10 @@ input::-webkit-input-placeholder {
 }
 
 #pop-title {
+    display: flex;
     width: 100%;
+    justify-content: center;
+    align-items: center;
     height: 3rem;
     font-size: 1.6rem;
     line-height: 2rem;
@@ -438,6 +572,7 @@ input::-webkit-input-placeholder {
 }
 
 #pop-content {
+    display: flex;
     font-weight: 100;
     flex: 1;
     padding: 1rem;
@@ -448,6 +583,7 @@ input::-webkit-input-placeholder {
 }
 
 #pop-box-aboutus {
+    display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
@@ -496,12 +632,14 @@ input::-webkit-input-placeholder {
 }
 
 .pop-window {
+    display: flex;
     position: absolute;
     flex-direction: column;
-    max-height: 70vh;
-    min-height: 40vh;
-    width: 30vw;
+    max-height: 60vh;
+    min-height: 30vh;
+    width: 50vw;
     min-width: 30rem;
+    max-width: 50rem;
     background-color: rgba(255, 255, 255, 1);
     box-shadow: 0 0 10px -5px #000;
     color: #333;
@@ -528,7 +666,7 @@ input::-webkit-input-placeholder {
     z-index: 20;
 }
 
-#thought #userinfo {
+.thought-info {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -537,14 +675,14 @@ input::-webkit-input-placeholder {
     margin-top: 0.75rem;
 }
 
-#thought #face {
+.thought-face {
     margin-left: 1rem;
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
 }
 
-#thought #name-and-date {
+.thought-name-and-date {
     margin-left: 1rem;
     font-size: 0.875rem;
     font-weight: 600;
@@ -555,18 +693,77 @@ input::-webkit-input-placeholder {
     align-items: flex-start;
 }
 
-#thought #name-and-date p {
+.thought-name-and-date p {
     margin: 0.25rem;
 }
 
-#thought #date {
+.thought-date {
     font-size: 0.75rem;
-    font-weight: 400;
-    color: #808080;
+    color: #666;
     font-weight: 500;
 }
 
-#thought #content {
+.thought-views {
+    margin-left: auto;
+    margin-right: 2rem;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.thought-content {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.thought-content .editor {
+    width: 95%;
+    height: 100%;
+    flex-direction: column;
+}
+
+.thought-content .editor .w-e-toolbar {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.thought-content .editor .w-e-toolbar .w-e-menu {
+    padding: 0.5rem 0.2rem;
+}
+
+.thought-content .editor .w-e-text-container {
+    flex-direction: column;
+    width: 100%;
+    min-height: 30vh;
+    max-height: 50vh;
+    border: white;
+}
+
+.thought-content .editor .w-e-text {
+    padding: 0.5rem 0.75rem;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.thought-content .editor .w-e-text-container .w-e-text p {
+    margin: 0;
+}
+
+.thought-content #thought-editor .w-e-text-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.thought-content #thought-editor .w-e-text {
+    height: fit-content;
+}
+
+/* #thought .thought-content {
     width: 100%;
     max-height: 40vh;
     overflow: auto;
@@ -574,6 +771,11 @@ input::-webkit-input-placeholder {
     flex-direction: column;
     flex: 1;
 }
+#express .thought-content {
+    padding: 0 1.5rem;
+    line-height: 1.8;
+    width: 100%;
+} */
 
 #thought #text-content {
     text-indent: 2rem;
@@ -590,8 +792,9 @@ input::-webkit-input-placeholder {
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     z-index: 20;
+    align-items: center;
 }
 
 #express #title {
@@ -599,19 +802,16 @@ input::-webkit-input-placeholder {
     font-weight: 500;
     color: #000;
     margin: 0 0 0.1rem 0;
+    justify-content: center;
+    align-items: center;
 }
 
 #express #subtitle {
     font-size: 0.85rem;
     color: #8590a6;
-    margin: 0 0 1rem 0;
+    margin: 0 0 0.5rem 0;
 }
 
-#express #content {
-    padding: 0 1.5rem;
-    line-height: 1.8;
-    width: 100%;
-}
 
 #express #write-content-text {
     outline: none;
@@ -632,35 +832,40 @@ input::-webkit-input-placeholder {
     overflow-y: auto;
 }
 
-#express #post-button {
+.express-bottom {
     display: flex;
     flex-direction: row;
     width: 100%;
     margin: 0.75rem 0;
-}
+    justify-content: center;
+    align-items: center;
 
-#express #post-button a {
+}
+.express-classify{
+    position: absolute;
+    left: 0;
     display: flex;
-    margin: 0 2rem;
+    flex-direction: row;
+    margin-left: 2rem;
+    align-items: center;
+}
+.text-classify{
+    font-size: 0.75rem;
+    color: #8590a6;
+    margin-left: 0.5rem;
 }
 
-#express #upload svg:hover {
+.btn-classify:hover svg {
     fill: #60aaf0;
 }
 
-#express #post svg:hover {
+.btn-post:hover svg {
     fill: #3ea06e;
 }
 
-#express #upload svg,
-#express #post svg {
+svg {
     fill: #8590a6;
     transition: all 0.2s ease-in-out;
-}
-
-#express #upload {
-    position: absolute;
-    left: 0;
 }
 
 
@@ -794,9 +999,11 @@ input::-webkit-input-placeholder {
     position: absolute;
     left: 0;
 }
+
 .checkbox-autologin label {
     position: relative;
 }
+
 .checkbox-autologin label:before {
     content: '';
     position: absolute;
@@ -808,8 +1015,9 @@ input::-webkit-input-placeholder {
     border-radius: 3px;
     border: 2px solid #ccc;
 }
+
 .checkbox-autologin label:after {
-  content: '';
+    content: '';
     display: block;
     width: 10px;
     height: 4px;
@@ -822,21 +1030,24 @@ input::-webkit-input-placeholder {
     top: 6px;
     left: 4px;
 }
-.checkbox-autologin input[type="checkbox"]:checked ~ label::before {
+
+.checkbox-autologin input[type="checkbox"]:checked~label::before {
     border: 2px solid #EB9400;
     color: #EB9400;
 }
 
-.checkbox-autologin input[type="checkbox"]:checked ~ label::after {
+.checkbox-autologin input[type="checkbox"]:checked~label::after {
     transform: rotate(-45deg) scale(1);
     border-bottom: 2px solid #EB9400;
     border-left: 2px solid #EB9400;
 }
-.checkbox-autologin input[type="checkbox"] ~ label span{
+
+.checkbox-autologin input[type="checkbox"]~label span {
     transition: all 0.3s ease-in-out;
 }
-.checkbox-autologin input[type="checkbox"]:checked ~ label span{
-    color:#EB9400;
+
+.checkbox-autologin input[type="checkbox"]:checked~label span {
+    color: #EB9400;
     font-weight: bold;
 }
 
@@ -847,6 +1058,7 @@ input::-webkit-input-placeholder {
     font-weight: normal;
     cursor: pointer;
 }
-.checkbox-autologin input[type="checkbox"]:focus + label::before {
+
+.checkbox-autologin input[type="checkbox"]:focus+label::before {
     outline: 0;
 }

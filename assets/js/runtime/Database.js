@@ -2,7 +2,7 @@ var database = new(function Database() {
     this.thoughts = {
         happy: [],
         angry: [],
-        worry: [],
+        sad: [],
         disgust: []
     }    
     this.userLicense = {
