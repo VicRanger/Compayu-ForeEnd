@@ -8,9 +8,9 @@ SendMsgType = {
 }
 
 var network = new(function Network(database) {
-    this.url = '127.0.0.1:8000';
-    // this.url = 's.wzz.ink';
-    this.isUseSafe = false;
+    // this.url = '127.0.0.1:8000';
+    this.url = 's.wzz.ink';
+    this.isUseSafe = true;
     this.baseUrl = 'http' + (this.isUseSafe ? 's' : '') + '://' + this.url;
     this.wsUrl = 'ws' + (this.isUseSafe ? 's' : '') + '://' + this.url + '/thought/';
     this.websocket = null;
@@ -78,6 +78,7 @@ var network = new(function Network(database) {
                     resolve(res);
                 })
                 .catch((err) => {
+                    vm.msg('发送情绪失败，网络错误','error');
                     console.log(err);
                     reject(err);
                 });
@@ -112,6 +113,7 @@ var network = new(function Network(database) {
         if (this.websocket.readyState != 1) {
             console.log('websocket未准备好', this.websocket.readyState);
             if (this.websocket.readyState == 3) {
+                vm.msg('WebSocket连接断开，重连中...','error');
                 this.initWebsocket();
             }
             return;
@@ -132,7 +134,8 @@ var network = new(function Network(database) {
                 this.roomGroupName = msg.room_group_name;
                 console.log('channel_name:', this.channelName);
                 console.log('room_group_name', this.roomGroupName);
-                UI.sendTopMsg('WebSocket连接成功', `组ID：${this.roomGroupName}<br />连接ID：${this.channelName}`);
+                // UI.sendTopMsg('WebSocket连接成功', `组ID：${this.roomGroupName}<br />连接ID：${this.channelName}`);
+                vm.msg('WebSocket连接成功','success');
                 break;
             case ReceiveMsgType.ReceiveThoughtSuccess:
                 console.log(this);
@@ -157,10 +160,12 @@ var network = new(function Network(database) {
     }
     this.websocketOnError = function (e) {
         console.log('websocket连接失败', e);
+        vm.msg('WebSocket连接失败','error');
         this.createWebsocket();
     }
     this.websocketOnClose = function (e) {
         console.log('websocket断开连接', e);
+        vm.msg('WebSocket断开连接','info');
     }
 })(database);
 var focusOnUnit = (o) => {

@@ -146,6 +146,7 @@ var database = new(function Database() {
             <p>你将同业内一流的伙伴们并肩奋斗，创造赏心悦目的网页，充分发挥自己的创造力，并在前进的过程中获得成长。</p>
             <p>如果你一样有梦想，如果你肯为梦想而努力，如果你希望和伙伴们一起工作。</p>
             <p>如果你不想浪费生命在无意义的工作中，如果你够聪明够努力只是缺一个机会。</p>
+            <div class="pop-aboutus"><a href="./about/about.html" target="blank">关于我们</a></div>
         </div>
         `
     }

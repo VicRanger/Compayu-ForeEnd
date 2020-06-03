@@ -33,7 +33,7 @@
         </transition>
         <transition name="thought">
             <div v-show="thought.show" id="thought" class="pop-window">
-                <a @click="hideThought" id="close" v-html="svgData.closeSvg"></a>
+                <a @click="hideThought" class="close" v-html="svgData.closeSvg"></a>
                 <div class="thought-info">
                     <img :src="thought.face" class="thought-face">
                     <div class="thought-name-and-date">
@@ -49,7 +49,7 @@
         </transition>
         <transition name="thought">
             <div v-show="express.show" id="express" class="pop-window">
-                <a @click="hideExpress" id="close" v-html="svgData.closeSvg"></a>
+                <a @click="hideExpress" class="close" v-html="svgData.closeSvg"></a>
                 <div id="title">发表</div>
                 <div id="subtitle">分享你此时的「<span id="subtitle-name">{{express.typeText}}</span>」吧~</div>
                 <div class="thought-content">
@@ -82,17 +82,18 @@
             </transition-group>
         </div>
         <div id="top-nav">
-            <div><a href="./about/about.html" target="_self">关于我们</a></div>
+            <div v-if="isEnter"><a @click="toggleVolume" class="volume"
+                    v-html="volume>0?svgData.volumeSvg:svgData.volumeMuteSvg"></a></div>
+            <!-- <div><a href="./about/about.html" target="_self">关于我们</a></div> -->
             <div id="about-us" @click="showAboutUs">开发者信息</div>
-            <div id="user-license" @click="showUserLicense">用户协议</div>
+            <!-- <div id="user-license" @click="showUserLicense">用户协议</div> -->
             <div v-if="user.isLogin">{{user.nickname}}: <span @click="loginOut">登出</span></div>
         </div>
         <div id="canvas-container"></div>
+        <div id="bottom-box">
+            生活中不能说的秘密，请把它留在这里
+        </div>
         <div id="initial-container">
-
-            <div id="bottom-box">
-                生活中不能说的秘密，请把它留在这里
-            </div>
             <div id="center-box">
                 <div id="compayu-title">
                     <div class="title-border title-top-border"></div>
@@ -106,12 +107,13 @@
                 </div>
                 <div id="login-panel">
                     <div class="loading-box"></div>
+                    <div class="loading-bg"></div>
                     <div id="login-mode">
-                        <div id="user-mode" class="mode mode-selected">账号登录</div>
-                        <div id="random-mode" class="mode">游客登录</div>
+                        <button id="user-mode" class="mode mode-selected">账号登录</button>
+                        <button id="random-mode" class="mode">游客登录</button>
                     </div>
                     <div id="input-panel">
-                        <div class="user-login">
+                        <div v-if="loginMode=='user'" class="user-login">
                             <div class="user-login-inputs" v-if="!user.useCookie">
                                 <input class="input-login" type="text" placeholder="邮箱或者手机号" v-model="user.account" />
                                 <input class="input-login" type="password" placeholder="密码" v-model="user.password" />
@@ -141,13 +143,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="random-login">
+                        <div v-if="loginMode=='random'" class="random-login">
                             <div id="random-panel">
                                 <div id="random-text">
                                     <div>以过客的身份</div>
                                     <div>去看看别人的故事吧</div>
                                 </div>
-                                <div @click="randomEnter" class="btn-random-login" id="random-enter">进入</div>
+                                <button @click="randomEnter" class="btn-random-login" id="random-enter">进入</button>
                             </div>
                         </div>
                     </div>
@@ -156,6 +158,10 @@
         </div>
     </div>
     <script src="./assets/js/lib/jquery3.js"></script>
+    <script>
+        $('#login-mode').hide()
+        $('#input-panel').hide()
+    </script>
     <script src="./assets/js/lib/axios.min.js"></script>
     <script src="./assets/js/lib/vue.js"></script>
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>

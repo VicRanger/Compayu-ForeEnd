@@ -12,6 +12,7 @@ class CameraManager {
         this.isAnimRotation = false;
         this.isAnimPosition = false;
         this.isRejectAnim = false;
+        this.cameraDepth = cameraDepth;
         this.centerFocusOffset = new THREE.Vector3(0, 0, cameraDepth * 0.5);
         this.centerFocusScale = 1;
         this.lerpTime = 7.5;
@@ -69,6 +70,8 @@ class CameraManager {
                     this.camera.position.x = Math.min(Math.max(this.camera.position.x, -worldX * baseRangeX), worldX * baseRangeX);
                     this.camera.position.y += mouseSpeed * tMouseY * fac * T.getDelta();
                     this.camera.position.y = Math.min(Math.max(this.camera.position.y, -worldY * baseRangeY), worldY * baseRangeY);
+                    this.camera.position.z = Math.min(Math.max(this.camera.position.z, this.cameraDepth), this.cameraDepth);
+        
                 }
                 break;
         }

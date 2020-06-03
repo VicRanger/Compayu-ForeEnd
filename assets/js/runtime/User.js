@@ -10,7 +10,6 @@ var User = new(function User() {
     this.checkLoginState = function () {
         this.reset();
         this.id = $.cookie('user_id')
-        console.log(this.id)
         if (this.id && this.id != 'null') {
             console.log("cookie中存在token")
             this.getUserInfo('id', this.id).then((res) => {
@@ -86,10 +85,6 @@ var User = new(function User() {
         return new Promise((resolve, reject) => {
             let account = $.cookie('account')
             let password = $.cookie('password')
-            // if(/\w+[@]{1}\w+[.]\w+/.test(account)){
-            //     account = account.substring(1,account.length-1)
-            // }
-            console.log(account);
             this.loginWithPassword(account, password, isPasswordMd5 = true, autoLogin = true, useAutoLogin = true)
             .then((res) => {
                 resolve(res);
@@ -119,6 +114,16 @@ var User = new(function User() {
                         this.getUserInfo('token',this.token);
                         resolve(res);
                     } else {
+                        setTimeout(()=>{
+                            vm.user.useCookie = false;
+                            console.log($.cookie('account'),account)
+                            if($.cookie('account')==account){
+                                $.cookie('user_id',null);
+                                $.cookie('account',null);
+                                $.cookie('password',null);
+                                $.cookie('token',null);
+                            }
+                        },500)
                         vm.msg(res['msg'], 'error')
                         reject(res);
                     }

@@ -1,6 +1,11 @@
 var vm = new Vue({
     el: '#root',
     data: {
+        isLoaded:false,
+        isEnter:false,
+        operationDelay: 500,
+        lastOperation: new Date().getTime(),
+        loginMode:'user',
         pop: {
             show: false,
             title: '标题',
@@ -17,7 +22,7 @@ var vm = new Vue({
         express: {
             show: false,
             typeText: '',
-            classifyResult: '开心:(65%)',
+            classifyResult: '',
         },
         user: {
             account: '',
@@ -27,6 +32,7 @@ var vm = new Vue({
             isLogin: false,
             nickname: ''
         },
+        volume:1,
         svgData: {}
     },
     mounted: function () {
@@ -35,7 +41,7 @@ var vm = new Vue({
     computed: {
         isLoginInputsValid: function () {
             return (/^1[34578]\d{9}$/.test(this.user.account) || /\w+[@]{1}\w+[.]\w+/.test(this.user.account)) && this.user.account.length > 0 && this.user.password.length > 0
-        }
+        },
     },
     methods: {
         msg: function (msg, type, duration = 1500) {
@@ -46,11 +52,32 @@ var vm = new Vue({
                 duration: duration,
             })
         },
-        classifyExpress: function () {
+        isOperationBlock: function (time = 0) {
+            let t = time > 0 ? time : this.operationDelay;
+            return this.lastOperation + t > new Date().getTime();
+        },
+        operationDone: function () {
+            this.lastOperation = new Date().getTime()
+        },
+        classifyExpress: function (e) {
+            if (this.isOperationBlock(3000)) {
+                vm.msg('不要点太快哦，服务器吃不消哇','warning')
+                return
+            };
             VueFunctions.classifyExpress(this);
+            this.operationDone();
+        },
+        classifyExpressOnEditor:function(){
+            if (this.isOperationBlock()) {
+                return
+            };
+            VueFunctions.classifyExpress(this);
+            this.operationDone();
         },
         postExpress: function () {
+            if (this.isOperationBlock()) return;
             UI.postExpress();
+            this.operationDone();
         },
         hideThought: function () {
             UI.hideThought();
@@ -59,19 +86,29 @@ var vm = new Vue({
             UI.hideExpress();
         },
         userLogin: function () {
+            if (this.isOperationBlock()) return;
             VueFunctions.userLogin(this);
+            this.operationDone();
         },
         autoLogin: function () {
+            if (this.isOperationBlock()) return;
             VueFunctions.autoLogin(this);
+            this.operationDone();
         },
         changeUser: function () {
             VueFunctions.changeUser(this);
         },
         loginOut: function () {
+            if (this.isOperationBlock(3000)) return;
             VueFunctions.loginOut(this);
+            this.operationDone();
         },
         randomEnter: function () {
+            if (this.isOperationBlock()) return;
+            vm.user.nickname = "匿名"
+            vm.user.isLogin = true;
             UI.setEnter();
+            this.operationDone();
         },
         showAboutUs: function () {
             VueFunctions.showAboutUs(this);
@@ -89,6 +126,9 @@ var vm = new Vue({
         },
         callTopMsg: function (id) {
             VueFunctions.callTopMsg(this, id);
+        },
+        toggleVolume:function(){
+            VueFunctions.toggleVolume(this);
         }
     }
 })
@@ -132,8 +172,11 @@ var VueFunctions = new(function () {
         User.loginOut();
     }
     this.changeUser = (vue) => {
-        console.log(vue)
         vue.user.useCookie = false;
+    }
+    this.toggleVolume = (vue) => {
+        vue.volume = 1 - vue.volume;
+        audioLoadDic.bg.player.mute = vue.volume<=0;
     }
     this.classifyExpress = (vue) => {
         let text = UI.getExpressText();
@@ -156,20 +199,24 @@ var VueFunctions = new(function () {
                 for (var i = 0; i < res.data.length; i++) {
                     predicts[i] = parseInt(parseFloat(res.data[i]) * 10000) / 100;
                 }
-                console.log(predicts)
+                // console.log(predicts)
                 let result = Object.keys(predicts).sort(function (a, b) {
                     return predicts[b] - predicts[a];
                 });
                 resultText = ""
-                console.log(result)
+                // console.log(result)
+                var tot = 0;
                 for (var i = 0; i < result.length; i++) {
                     if (predicts[result[i]] > 25) {
+                        if(++tot>2){
+                            break;
+                        }
                         resultText += `${UI.subtitle[UI.ind2eng[result[i]]]}:(${predicts[result[i]]}%) `
                     }
                 }
                 vue.express.classifyResult = resultText;
                 clearTimeout(clock);
-                console.log(loadingMsg);
+                // console.log(loadingMsg);
                 if (loadingMsg) {
                     loadingMsg.close();
                     loadingMsg = false;
@@ -214,6 +261,9 @@ var expressEditor = new(function () {
         'undo', // 撤销
         'redo' // 重复
     ]
+    this.editor.customConfig.onchange = ()=>{
+        vm.classifyExpressOnEditor(); 
+    }
     this.editor.create();
     this.editor.$toolbarElem.css('background-color', 'none').css('border', '1px solid #ccc')
     this.editor.$textContainerElem.css('border', '1px solid #ccc').css('border-top', 'none')

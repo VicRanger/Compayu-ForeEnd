@@ -67,7 +67,7 @@ var G = new (function G() {
     this.setLoadingBar = function (percent) {
         $('.loading-box').animate({
             'width': `${percent*100}%`
-        }, 500, 'easeInOutQuint')
+        }, 50, 'easeInOutQuint')
     }
     this.generateID = function () {
         return ++this.id;
@@ -81,13 +81,12 @@ var G = new (function G() {
         +this.loadAudioProgress*0.2;
         this.setLoadingBar(this.loadProgress);
         if (1-this.loadProgress < 1e-6 && 1-network.downloadStatus() < 1e-6) {
+            this.setLoadComplete();
+            loadWorld();
+            addEvents();
             setTimeout(() => {
-                loadWorld();
-                addEvents();
                 UI.setLogin();
-                this.setLoadComplete();
             }, 1000);
-            this.isLoadComplete = true;
         }
     }
     this.updateLoadWebProgress = function(percent){
@@ -111,7 +110,9 @@ var G = new (function G() {
     }
     return this;
 });
-
+var axisX = new THREE.Vector3(1, 0, 0);
+var axisY = new THREE.Vector3(0, 1, 0);
+var axisZ = new THREE.Vector3(0, 0, 1);
 Pace.on("update", function (percent) {
     G.updateLoadWebProgress(percent);
 });

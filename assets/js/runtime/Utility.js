@@ -23,11 +23,6 @@ function random(l, r) {
 function d2r(deg) {
     return deg / 180.0 * Math.PI;
 }
-var axisX = new THREE.Vector3(1, 0, 0);
-var axisY = new THREE.Vector3(0, 1, 0);
-var axisZ = new THREE.Vector3(0, 0, 1);
-
-
 
 function interpFloat(l, r, p) {
     return l + (r - l) * p;
