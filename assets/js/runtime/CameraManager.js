@@ -55,7 +55,7 @@ class CameraManager {
                 this.updateCenterFocus();
                 break;
             default:
-                if (!G.isUnitClick && !this.isRejectAnim && !G.isPlayTutorial) {
+                if (G.isEnterWorld &&　!G.isUnitClick && !this.isRejectAnim && !G.isPlayTutorial) {
                     let fac = 1;
                     let mouseSpeed = 10;
                     let tMouseX = mouseXn;

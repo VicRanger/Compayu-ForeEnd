@@ -371,14 +371,14 @@ input::-webkit-input-placeholder {
     width: 90%;
     max-width: 18rem;
     padding: 0.25rem 0.75rem;
-    margin: 0.25rem 0;
+    margin: 0.35rem 0;
     font-weight: 500;
 }
 
 .input-login:focus {
     border: 1px solid #EB9400;
     box-shadow: 0 0 10px -5px #EB9400;
-    transform: translate3d(0vh, -0.75vh, 4vh);
+    transform: translate3d(0vh, -1vh, 4vh);
 }
 
 .input-login::placeholder {
